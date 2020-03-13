@@ -7,7 +7,7 @@ IMPORTANT: This program doesnt delete old backups automaticly, you will need to 
 ## Getting Started
 
 I will give you a short tutorial on how to set up this tool on a Debian distribution called Ubuntu Server (these steps should be same for any Debian based Linux distro). I recommend using Debian distribution called Ubuntu Server for any type of server hosting.
-More detailed guide will be available here: [MinecraftWorldBackup](https://github.io/docs/worldbackup/index.html)
+More detailed guide will be available here: [WorldBackup](https://github.io/docs/worldbackup/index.html)
 
 ### Prerequisites
 
@@ -40,7 +40,7 @@ We want to clone and rename our direcotry, so in order to do that type in:
 ```
 git clone https://github.com/Pequla/WorldBackup
 mv /WorldBackup/compiled /mcbackup
-rm -R /MinecraftWorldBackup
+rm -R /WorldBackup
 ```
 
 Now we should make our jar and sh files executable on our server, in order to to that we will type in the following:
