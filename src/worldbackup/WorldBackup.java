@@ -38,7 +38,7 @@ public class WorldBackup {
                     prop.setProperty("rcon.password", "password");
                     prop.setProperty("source.folder", "/home/username/minecraft/world");
                     prop.setProperty("output.path", "/home/username/backups");
-                    prop.store(output, "WorldBackup configuration file." + System.lineSeparator() + "Make sure you use / when specifying file paths !!!" + System.lineSeparator() +"Created by: Pequla ( https://pequla.github.io/ )");
+                    prop.store(output, "WorldBackup configuration file." + System.lineSeparator() + "Make sure you use / when specifying file paths !!!" + System.lineSeparator() + "Created by: Pequla ( https://pequla.github.io/ )");
                 }
             }
             try (InputStream input = new FileInputStream(config)) {
@@ -55,10 +55,10 @@ public class WorldBackup {
     }
 
     public static void main(String[] args) {
-
+        Rcon rcon = null;
         try {
             WorldBackup backup = new WorldBackup();
-            Rcon rcon = new Rcon(host, port, password.getBytes());
+            rcon = new Rcon(host, port, password.getBytes());
             System.out.println("Backup has started...");
             rcon.command("tellraw @a [\"\",{\"text\":\"[WorldBackup] \",\"bold\":true,\"color\":\"yellow\"},{\"text\":\"World backup started\"}]");
             rcon.command("save-off");
@@ -67,14 +67,20 @@ public class WorldBackup {
             backup.generateFileList(new File(sourceFolder));
             backup.zipIt(outputPath);
             rcon.command("tellraw @a [\"\",{\"text\":\"[WorldBackup] \",\"bold\":true,\"color\":\"yellow\"},{\"text\":\"World backup finished\"}]");
-            rcon.command("save-on");
-            rcon.disconnect();
         } catch (IOException ex) {
             System.err.println("An error occured while connecting to the server...");
             ex.printStackTrace(System.out);
         } catch (AuthenticationException ex) {
             System.err.println("An error occured while trying to login...");
             ex.printStackTrace(System.out);
+        } finally {
+            try {
+                rcon.command("save-on");
+                rcon.disconnect();
+            } catch (IOException ex) {
+                System.err.println("An error occured while closing resources");
+                System.err.println("More info: " + ex.getMessage());
+            }
         }
     }
 
