@@ -39,7 +39,7 @@ We want to clone and rename our direcotry, so in order to do that type in:
 
 ```
 git clone https://github.com/Pequla/WorldBackup
-mv /WorldBackup/compiled /mcbackup
+mv /WorldBackup/dist /mcbackup
 rm -R /WorldBackup
 ```
 
